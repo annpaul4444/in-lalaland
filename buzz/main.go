@@ -7,9 +7,9 @@ import (
 
 func buzzword() string {
 	verb := []string{"Leverage", "Harmonize", "Accelerate", "Expedite", "Harness"}
-	fancywhats := []string{"Automation of", "Orchestration of", "Integration of", "Optimization of", "Power of"}
-	fakewhats := []string{"Agentic Vision", "Agents", "Auto-Bots", "AI Workflows", "Operational Excellence"}
-	sentence := verb[rand.IntN(len(verb))] + " " + fancywhats[rand.IntN(len(fancywhats))] + " " + fakewhats[rand.IntN(len(fakewhats))]
+	fancyWhats := []string{"Automation of", "Orchestration of", "Integration of", "Optimization of", "Power of"}
+	fakeWhats := []string{"Agentic Vision", "Agents", "Auto-Bots", "AI Workflows", "Operational Excellence"}
+	sentence := verb[rand.IntN(len(verb))] + " " + fancyWhats[rand.IntN(len(fancyWhats))] + " " + fakeWhats[rand.IntN(len(fakeWhats))]
 	return sentence
 }
 
