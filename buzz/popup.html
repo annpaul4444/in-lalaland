@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buzz!</title>
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: #14161f;
+    font-family: "Segoe UI", system-ui, sans-serif;
+  }
+
+  .stage {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 24px;
+  }
+
+  .face {
+    width: 340px;
+    border-radius: 18px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .bubble {
+    position: relative;
+    width: 360px;
+    margin: 0;
+    padding: 22px 26px;
+    background: #fff;
+    color: #14161f;
+    border-radius: 22px;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.3;
+    animation: pop 0.25s ease-out;
+  }
+
+  /* The little tail that points at the face. */
+  .bubble::before {
+    content: "";
+    position: absolute;
+    left: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-style: solid;
+    border-width: 11px 17px 11px 0;
+    border-color: transparent #fff transparent transparent;
+  }
+
+  /* Hides the cursor bar once typing has finished. */
+  .bubble.done .cursor { display: none; }
+  .cursor { animation: blink 0.7s steps(1) infinite; }
+
+  @keyframes pop {
+    from { transform: scale(0.85); opacity: 0; }
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  /* On narrow windows, put the bubble under the face. */
+  @media (max-width: 800px) {
+    .stage { flex-direction: column; }
+    .face { width: min(340px, 90vw); }
+    .bubble { width: min(360px, 90vw); box-sizing: border-box; }
+    .bubble::before {
+      left: 50%;
+      top: -16px;
+      transform: translateX(-50%);
+      border-width: 0 11px 17px 11px;
+      border-color: transparent transparent #fff transparent;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <!-- Go copies your GIF next to this page as buzz.gif.
+         If there isn't one, the image removes itself. -->
+    <img class="face" src="buzz.gif" alt="" onerror="this.remove()">
+
+    <!-- Go puts your buzzword in place of the dot in curly brackets. -->
+    <p class="bubble" id="bubble">{{.}}</p>
+  </div>
+
+  <script>
+    // Type the buzzword out one letter at a time.
+    const bubble = document.getElementById("bubble");
+    const text = bubble.textContent;
+    let shown = 0;
+
+    function render() {
+      bubble.textContent = text.slice(0, shown);
+      const cursor = document.createElement("span");
+      cursor.className = "cursor";
+      cursor.textContent = "|";
+      bubble.append(cursor);
+    }
+
+    render();
+    const timer = setInterval(() => {
+      shown++;
+      render();
+      if (shown >= text.length) {
+        clearInterval(timer);
+        bubble.classList.add("done");
+      }
+    }, 45);
+  </script>
+</body>
+</html>
