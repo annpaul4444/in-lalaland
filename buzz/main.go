@@ -1,10 +1,10 @@
 package main
 
 import (
-	_ "embed" // This is for HTML stuff, _ is needed when stuff is not called for whatever is imported
+	_ "embed" // Can build any file into the program, HTML stuff as well, _ is needed when something is not called from this
 	"html/template"
 	"log"
-	"math/rand/v2" // This is for math stuff
+	"math/rand/v2" // This is for random number under math stuff
 	"os"           // This is for printing stuff
 	"os/exec"
 	"path/filepath"
